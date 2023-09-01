@@ -22,6 +22,17 @@ jobs:
           command: aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_REGISTRY_URL
 
       # Other steps...
+      - run:
+          name: Build and tage docker image
+          command: | 
+            docker-compose build 
+            docker tag my-image-placeholder:latest $AWS_REGISTRY_URL/my-app:my-tag
+
+
+      - run:
+          name: Push to AWS ERC
+          comand:
+            docker push $AWS_REGISTRY_URL/my-app:my-tag
 
 workflows:
   version: 2
