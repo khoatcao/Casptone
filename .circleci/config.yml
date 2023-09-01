@@ -13,6 +13,11 @@ jobs:
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             sudo ./aws/install
+      - run:
+          name: Install Docker
+          command: |
+            sudo curl -fsSL https://get.docker.com -o get-docker.sh
+            sudo sh get-docker.sh
       # Other build steps here...
 
       # Authenticate with AWS ECR using CircleCI secrets dsgsdg
