@@ -13,20 +13,19 @@ jobs:
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             sudo ./aws/install
-      - run:
-          name: Install Docker
-          command: |
-            sudo curl -fsSL https://get.docker.com -o get-docker.sh
-            sudo sh get-docker.sh
-      - run:
-          name: Install Docker Compose
-          command: |
-            sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-            sudo chmod +x /usr/local/bin/docker-compose
+#      - run:
+#          name: Install Docker
+#          command: |
+#            sudo curl -fsSL https://get.docker.com -o get-docker.sh
+#            sudo sh get-docker.sh
+#      - run:
+#          name: Install Docker Compose
+#          command: |
+#            sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+#            sudo chmod +x /usr/local/bin/docker-compose
+
+
             
-      - run:
-          name: Start Docker Service
-          command: sudo service docker start
 
 
       # Other build steps here...
@@ -39,12 +38,14 @@ jobs:
 
       # Other steps...
       - run:
-          name: Build and tage docker image
-          command: | 
-            docker-compose build 
-            docker tag my-image-placeholder:latest $AWS_REGISTRY_URL/my-app:my-tag
+          name: Build Docker Image
+          command: |
+            docker build -t my-flask-app .
 
-
+      - run:
+          name: Tag Docker Image
+          command: |
+            docker tag my-flask-app:latest $AWS_REGISTRY_URL/my-app:my-tag
       - run:
           name: Push to AWS ERC
           command: | 
