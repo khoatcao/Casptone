@@ -5,7 +5,7 @@ jobs:
       image: circleci/python:3.8
       # Use an Ubuntu machine image
     working_directory: ~/app
-
+    resource_class: large
     steps:
       - checkout
 
