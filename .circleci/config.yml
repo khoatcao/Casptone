@@ -1,46 +1,53 @@
 version: 2
 jobs:
-  build-and-push:
-    machine:
-      image: circleci/python:3.8
-      # Use an Ubuntu machine image
+  build:
+    docker:
+      - image: circleci/python:3.8
     working_directory: ~/app
 
     steps:
       - checkout
-
-      # Install Docker and Docker Compose
       - run:
-          name: Install Docker and Docker Compose
+          name: Install AWS CLI
           command: |
-            sudo apt-get update
-            sudo apt-get install -y docker.io
-            sudo systemctl start docker
-            sudo systemctl enable docker
-            sudo usermod -aG docker $USER  # Add the current user to the docker group
-            sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-            sudo chmod +x /usr/local/bin/docker-compose
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+            #      - run:
+            #          name: Install Docker
+            #          command: |
+            #            sudo curl -fsSL https://get.docker.com -o get-docker.sh
+            #            sudo sh get-docker.sh
+            #      - run:
+            #          name: Install Docker Compose
+            #          command: |
+            #            sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            #            sudo chmod +x /usr/local/bin/docker-compose
+      
+      
+      
+      
 
-      # Authenticate with AWS ECR
+      # Other build steps here...
+
+      # Authenticate with AWS ECR using CircleCI secrets dsgsdg
+      # Authenticate with AWS ECR using CircleCI secrets dsgsdg
       - run:
           name: Authenticate with AWS ECR
           command: aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_REGISTRY_URL
 
-      # Build Docker Image
+      # Other steps...
       - run:
           name: Build Docker Image
           command: |
-            docker-compose build
+            docker build -t my-flask-app .
 
-      # Tag Docker Image
       - run:
           name: Tag Docker Image
           command: |
             docker tag my-flask-app:latest $AWS_REGISTRY_URL/my-app:my-tag
-
-      # Push to AWS ECR
       - run:
-          name: Push to AWS ECR
+          name: Push to AWS ERC
           command: |
             docker push $AWS_REGISTRY_URL/my-app:my-tag
 
@@ -48,4 +55,4 @@ workflows:
   version: 2
   build:
     jobs:
-      - build-and-push
+      - build
