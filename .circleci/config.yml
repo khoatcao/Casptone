@@ -3,6 +3,7 @@ jobs:
   build-and-push:
     machine:
       image: circleci/python:3.8
+      resource_class: medium  # Use a valid resource class for your environment
     working_directory: ~/app
     steps:
       - checkout
@@ -41,7 +42,6 @@ jobs:
           name: Push to AWS ECR
           command: |
             docker push $AWS_REGISTRY_URL/my-app:my-tag
-    resource_class: large  # Move this line to the job definition
 
 workflows:
   version: 2
