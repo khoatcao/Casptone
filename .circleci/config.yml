@@ -1,0 +1,48 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.8  # Use the CircleCI Python image
+    working_directory: ~/app
+
+    steps:
+      - checkout  # Check out your code from GitHub
+
+      # Install any necessary dependencies for your Flask app here.
+      # For example, if you have a requirements.txt file:
+      - run:
+          name: Install dependencies
+          command: pip install --no-cache-dir -r requirements.txt
+
+      # Build the Docker image
+      - run:
+          name: Build Docker image
+          command: docker build -t my-flask-app .
+
+  deploy:
+    machine: true
+
+    steps:
+      - checkout  # Check out your code from GitHub
+
+      # Log in to your Docker Hub account or any other container registry
+      - run:
+          name: Log in to Docker Hub
+          command: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+
+      # Push the Docker image to the container registry
+      - run:
+          name: Push Docker image
+          command: docker push my-flask-app
+
+      # You can add deployment steps here to deploy your app to a Kubernetes cluster,
+      # AWS ECS, or any other platform of your choice.
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
