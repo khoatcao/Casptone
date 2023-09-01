@@ -15,7 +15,8 @@ jobs:
             sudo ./aws/install
       # Other build steps here...
 
-      # Authenticate with AWS ECR using CircleCI secrets
+      # Authenticate with AWS ECR using CircleCI secrets dsgsdg
+      # Authenticate with AWS ECR using CircleCI secrets dsgsdg
       - run:
           name: Authenticate with AWS ECR
           command: aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_REGISTRY_URL
