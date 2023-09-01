@@ -2,7 +2,8 @@ version: 2
 jobs:
   build-and-push:
     machine:
-      image: ubuntu-2004:202108-01  # Use an Ubuntu machine image
+      image: ubuntu-20.04
+      # Use an Ubuntu machine image
     working_directory: ~/app
 
     steps:
