@@ -31,7 +31,7 @@ jobs:
 
       - run:
           name: Push to AWS ERC
-          comand: | 
+          command: | 
             docker push $AWS_REGISTRY_URL/my-app:my-tag
 
 workflows:
