@@ -3,7 +3,6 @@ jobs:
   build-and-push:
     machine:
       image: circleci/python:3.8
-      resource_class: medium  # Use a valid resource class for your environment
     working_directory: ~/app
     steps:
       - checkout
