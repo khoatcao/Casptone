@@ -1,5 +1,15 @@
 version: 2
+orbs:
+  aws-cli: circleci/aws-cli@2.0.6
 jobs:
+  aws-cli-cred-setup:
+    executor: aws-cli/default
+    steps:
+      - aws-cli/setup:
+          aws-access-key-id: $AWS_ACCESS_KEY
+          aws-secret-access-key: $AWS_ACCESS_SECRET
+          aws-region: $AWS_REGION_NAME
+          aws_registry_url: $AWS_REGISTRY_URL
   build:
     docker:
       - image: circleci/python:3.8
@@ -20,7 +30,7 @@ jobs:
       # Authenticate with AWS ECR using CircleCI secrets dsgsdg asfasf
       - run:
           name: Authenticate with AWS ECR
-          command: aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_REGISTRY_URL
+          command: aws ecr get-login-password --region $AWS_REGION_NAME | docker login --username AWS --password-stdin $AWS_REGISTRY_URL
 
       # Other steps...
       - run:
@@ -37,4 +47,5 @@ workflows:
   version: 2
   build:
     jobs:
+      - aws-cli-cred-setup
       - build
