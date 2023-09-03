@@ -16,7 +16,7 @@ jobs:
             sudo ./aws/install > /dev/null  # Redirect output to /dev/null
             export AWS_PAGER="cat"
 
-        # Other build steps here... asfasf tet tetst
+        # Other build steps here... asfasf tet tetst tét
 
       # Authenticate with AWS ECR using CircleCI secrets dsgsdg tét
       # Authenticate with AWS ECR using CircleCI secrets dsgsdg asfasf
