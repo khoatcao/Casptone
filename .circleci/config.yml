@@ -16,7 +16,7 @@ jobs:
             sudo ./aws/install
             export AWS_PAGER=""
 
-        # Other build steps here... asfasf
+        # Other build steps here... asfasf tet
 
       # Authenticate with AWS ECR using CircleCI secrets dsgsdg
       # Authenticate with AWS ECR using CircleCI secrets dsgsdg asfasf
