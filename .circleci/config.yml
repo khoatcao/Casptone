@@ -18,7 +18,7 @@ jobs:
         # Other build steps here... asfasf tet tetst tét
 
       # Authenticate with AWS ECR using CircleCI secrets dsgsdg tét
-      # Authenticate with AWS ECR using CircleCI secrets dsgsdg asfasf
+      # Authenticate with AWS ECR using CircleCI secrets dsgsdg asfasf test
       - run:
           name: Authenticate with AWS ECR
           command: aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_REGISTRY_URL
