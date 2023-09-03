@@ -21,7 +21,7 @@ jobs:
       # Authenticate with AWS ECR using CircleCI secrets dsgsdg asfasf test
       - run:
           name: Authenticate with AWS ECR
-          command: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/t7h5w7m9
+          command: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin @$AWS_REGISTRY_URL
 #      - run:
 #          name: Create repo
 #          command : aws ecr create-repository --repository-name myapp SAFSF
