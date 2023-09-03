@@ -23,7 +23,7 @@ jobs:
           command: aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_REGISTRY_URL
       - run:
           name: Create repo
-          command : aws erc create-repository --repository-name myapp
+          command : aws ecr create-repository --repository-name myapp
       # Other steps...
       - run:
           name: Build and Tag Docker Image
