@@ -22,9 +22,9 @@ jobs:
       - run:
           name: Authenticate with AWS ECR
           command: aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_REGISTRY_URL
-      - run:
-          name: Create repo
-          command : aws ecr create-repository --repository-name myapp
+#      - run:
+#          name: Create repo
+#          command : aws ecr create-repository --repository-name myapp SAFSF
       # Other steps...
       - run:
           name: Build and Tag Docker Image
