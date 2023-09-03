@@ -8,30 +8,29 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Install AWS CLI
-        command: |
+          name: Install AWS CLI
+          command: |
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             sudo ./aws/install
-      # Other build steps here...
+        # Other build steps here...
 
       # Authenticate with AWS ECR using CircleCI secrets dsgsdg
       # Authenticate with AWS ECR using CircleCI secrets dsgsdg
       - run:
-           name: Authenticate with AWS ECR
-           command: aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_REGISTRY_URL
+          name: Authenticate with AWS ECR
+          command: aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_REGISTRY_URL
 
       # Other steps...
       - run:
-           name: Build and Tag Docker Image
-           command: |
-              docker build -t myapp:latest .
-              docker tag myapp:latest $AWS_REGISTRY_URL/myapp:latest
-            
-            # Push Docker image to AWS ECR
+          name: Build and Tag Docker Image
+          command: |
+            docker build -t myapp:latest .
+            docker tag myapp:latest $AWS_REGISTRY_URL/myapp:latest
+
       - run:
-           name: Push Docker Image to AWS ECR
-           command: docker push $AWS_REGISTRY_URL/myapp:latest
+          name: Push Docker Image to AWS ECR
+          command: docker push $AWS_REGISTRY_URL/myapp:latest
 
 workflows:
   version: 2
