@@ -29,12 +29,12 @@ jobs:
       - run:
           name: Build and Tag Docker Image
           command: |
-            docker build -t mytest .
-            docker tag mytest:latest $AWS_REGISTRY_URL/mytest:latest
+            docker build -t myapp .
+            docker tag myapp:latest $AWS_REGISTRY_URL/myapp:latest
 
       - run:
           name: Push Docker Image to AWS ECR
-          command: docker push $AWS_REGISTRY_URL/mytest:latest
+          command: docker push $AWS_REGISTRY_URL/myapp:latest
 
 workflows:
   version: 2
