@@ -1,5 +1,5 @@
 Description: >
-  Felix Lutze / Capstone Project
+  KhoaCao / Capstone Project
   Creates an Amazon EKS Cluster
 Parameters:
   EnvironmentName:
