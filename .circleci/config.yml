@@ -78,7 +78,7 @@ jobs:
               --region ${AWS_DEFAULT_REGION} \
               --parameter-overrides file://cloudformation/network-parameters.json
       - run:
-          name: Ensure EKS Cluster exists
+          name: Ensure EKS Cluster exists ok
           command: |
             aws cloudformation deploy \
               --template-file cloudformation/cluster.yml \
