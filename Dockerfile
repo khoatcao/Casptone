@@ -7,14 +7,11 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 # Create a virtual environment
-RUN python3 -m venv venv
 
-# Activate the virtual environment
-RUN . venv/bin/activate
 
 # Install Flask and any other dependencies
-RUN pip install --upgrade pip && pip install -r requirements.txt
-
+RUN pip install --upgrade pip &&\
+    pip install --trusted-host pypi.python.org -r requirements.txt
 # Expose port 80 for the Flask app to listen on
 EXPOSE 8080
 
