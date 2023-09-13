@@ -69,7 +69,7 @@ jobs:
           name: Install dependencies
           command: yum install -y tar gzip
       - run:
-          name: Ensure EKS network exists
+          name: Ensure EKS network exists test
           command: |
             aws cloudformation deploy \
               --template-file cloudformation/network.yml \
