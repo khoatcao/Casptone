@@ -8,8 +8,7 @@ WORKDIR /app
 COPY . /app
 
 # Install Flask and any other dependencies
-RUN pip install --upgrade pip &&\
-    pip install --trusted-host pypi.python.org -r requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Expose port 80 for the Flask app to listen on
 EXPOSE 8080
