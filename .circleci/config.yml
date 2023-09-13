@@ -191,7 +191,7 @@ jobs:
                 sleep 60
               fi
       - run:
-          name: Display the LoadBalancer's DNS name TEST
+          name: Display the LoadBalancer's DNS name test
           command: |
             cat ~/inventory.txt
             cd ansible
