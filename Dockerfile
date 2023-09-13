@@ -6,6 +6,11 @@ WORKDIR /app
 
 # Copy the current directory contents into the container at /app
 COPY . /app
+# Create a virtual environment
+RUN python3 -m venv venv
+
+# Activate the virtual environment
+RUN . venv/bin/activate
 
 # Install Flask and any other dependencies
 RUN pip install --upgrade pip && pip install -r requirements.txt
