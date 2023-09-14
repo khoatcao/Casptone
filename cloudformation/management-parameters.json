@@ -1,14 +1,5 @@
 [
-  {
-    "ParameterKey": "EnvironmentName",
-    "ParameterValue": "capstone-project"
-  },
-  {
-    "ParameterKey": "SSHKeyName",
-    "ParameterValue": "vockey"
-  },
-  {
-    "ParameterKey": "amiImageId",
-    "ParameterValue": "ami-024fc608af8f886bc"
-  }
+  "EnvironmentName=capstone-project",
+  "SSHKeyName=dungnq21Project5",
+  "amiImageId=ami-053b0d53c279acc90"
 ]

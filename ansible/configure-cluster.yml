@@ -7,5 +7,5 @@
   vars:
     ENVIRONMENT_NAME: "{{ lookup('env', 'ENVIRONMENT_NAME') }}"
   roles:
-    - development
-    - service
+    - capstone-deployment
+    - capstone-service
