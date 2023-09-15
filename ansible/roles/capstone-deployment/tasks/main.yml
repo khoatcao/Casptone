@@ -1,9 +1,9 @@
 - name: Copy deployment configuration
   copy:
     src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
-    dest: "{{ ansible_env.HOME }}"  # Use Ansible's dynamic variable for the home directory
+    dest: $HOME
 
 - name: Apply deployment configuration
-  shell: "{{ ansible_env.HOME }}/bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+  shell: "$HOME/bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-deployment.yaml"
   args:
-    chdir: "{{ ansible_env.HOME }}"  # Use Ansible's dynamic variable for the home directory
+    chdir: $HOME

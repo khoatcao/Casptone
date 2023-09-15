@@ -1,9 +1,9 @@
 - name: Copy service configuration
   copy:
     src: "{{ ENVIRONMENT_NAME }}-project-service.yaml"
-    dest: "{{ ansible_env.HOME }}"  # Use Ansible's dynamic variable for the home directory
+    dest: $HOME
 
 - name: Create service configuration
-  command: "{{ ansible_env.HOME }}/bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-service.yaml"
+  command: "$HOME/bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-service.yaml"
   args:
-    chdir: "{{ ansible_env.HOME }}"  # Use Ansible's dynamic variable for the home directory
+    chdir: $HOME
