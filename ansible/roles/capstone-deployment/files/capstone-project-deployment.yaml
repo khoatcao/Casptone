@@ -22,7 +22,7 @@ spec:
         app: capstone-project
     spec:
       containers:
-        - image: qdunggs95/capstone-project:latest
+        - image: myapp
           imagePullPolicy: Always
           name: capstone-project
           ports:
