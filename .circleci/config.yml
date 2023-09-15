@@ -149,26 +149,6 @@ jobs:
               --region ${AWS_DEFAULT_REGION} \
               --parameter-overrides file://cloudformation/management-parameters.json
           no_output_timeout: 15m  # Adjust the timeout as needed
-
-      - run:
-          name: Wait for management instances to become available
-          command: |
-            ready=false
-            while [[ $ready == "false" ]]; do
-              instances=$(aws ec2 describe-instances \
-                --region "${AWS_DEFAULT_REGION}" \
-                --query 'Reservations[*].Instances[*].PublicIpAddress' \
-                --filters "Name=tag:Name,Values=${ENVIRONMENT_NAME}-management*" \
-                --output text)
-              if [[ -n $instances ]]; then
-                echo "Instances are ready!"
-                ready=true
-              else
-                echo "Instances not ready yet. Waiting..."
-                sleep 30  # Adjust the sleep interval as needed
-              fi
-            done
-
       - run:
           name: Extract the IPs of the management instances for Ansible
           command: |
