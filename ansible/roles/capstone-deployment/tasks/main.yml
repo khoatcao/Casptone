@@ -4,6 +4,3 @@
     dest: $HOME
 
 - name: Apply deployment configuration
-  shell: "source ~/.bashrc  && ./bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-deployment.yaml"
-  args:
-    chdir: $HOME
