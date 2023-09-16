@@ -86,7 +86,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install dependencies
+          name: Install dependencies test
           command: yum install -y tar gzip
       - run:
           name: Ensure EKS network exists
