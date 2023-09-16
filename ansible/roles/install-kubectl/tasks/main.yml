@@ -18,3 +18,4 @@
   shell: echo 'export PATH=$PATH:$HOME/bin' >> .bashrc
   args:
     chdir: $HOME
+
