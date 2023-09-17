@@ -73,7 +73,7 @@ jobs:
             docker build --tag=$DOCKER_IMAGE_NAME .
             docker image ls
       - run:
-          name: Upload Docker to Dockerhub
+          name: Upload Docker to Dockerhub test
           command: |
             echo "Docker ID and Image: $DOCKER_IMAGE_NAME"
             docker login -u="$DOCKERHUB_USERNAME" -p="$DOCKERHUB_PASSWORD"
