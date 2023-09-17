@@ -1,5 +1,5 @@
 ---
-- name: "Copy service configuration"
+- name: "Copy and Apply service configuration"
   hosts: management
   user: ubuntu
   gather_facts: false
@@ -13,14 +13,6 @@
         dest: "~/"
       become: yes
 
-- name: "Apply service configuration"
-  hosts: management
-  user: ubuntu
-  gather_facts: false
-  become: yes
-  vars:
-    ENVIRONMENT_NAME: "{{ lookup('env', 'ENVIRONMENT_NAME') }}"
-  tasks:
     - name: Apply service configuration using kubectl
       command: kubectl apply -f "~/{{ ENVIRONMENT_NAME }}-project-service.yaml"
       become: yes

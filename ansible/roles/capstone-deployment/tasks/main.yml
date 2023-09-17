@@ -1,5 +1,5 @@
 ---
-- name: "Copy deployment configuration"
+- name: "Copy and Apply deployment configuration"
   hosts: management
   user: ubuntu
   gather_facts: false
@@ -13,14 +13,6 @@
         dest: "~/"
       become: yes
 
-- name: "Apply deployment configuration"
-  hosts: management
-  user: ubuntu
-  gather_facts: false
-  become: yes
-  vars:
-    ENVIRONMENT_NAME: "{{ lookup('env', 'ENVIRONMENT_NAME') }}"
-  tasks:
     - name: Apply deployment configuration using kubectl
       command: kubectl apply -f "~/{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
       become: yes
