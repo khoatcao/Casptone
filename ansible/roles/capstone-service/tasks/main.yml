@@ -1,6 +1,26 @@
-- name: Copy service configuration
-  copy:
-    src: "{{ ENVIRONMENT_NAME }}-project-service.yaml"
-    dest: $HOME
+---
+- name: "Copy service configuration"
+  hosts: management
+  user: ubuntu
+  gather_facts: false
+  become: yes
+  vars:
+    ENVIRONMENT_NAME: "{{ lookup('env', 'ENVIRONMENT_NAME') }}"
+  tasks:
+    - name: Copy service configuration
+      copy:
+        src: "{{ ENVIRONMENT_NAME }}-project-service.yaml"
+        dest: "~/"
+      become: yes
 
-- name: Create service configuration
+- name: "Apply service configuration"
+  hosts: management
+  user: ubuntu
+  gather_facts: false
+  become: yes
+  vars:
+    ENVIRONMENT_NAME: "{{ lookup('env', 'ENVIRONMENT_NAME') }}"
+  tasks:
+    - name: Apply service configuration using kubectl
+      command: kubectl apply -f "~/{{ ENVIRONMENT_NAME }}-project-service.yaml"
+      become: yes

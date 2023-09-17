@@ -1,6 +1,26 @@
-- name: Copy deployment configuration
-  copy:
-    src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
-    dest: $HOME
+---
+- name: "Copy deployment configuration"
+  hosts: management
+  user: ubuntu
+  gather_facts: false
+  become: yes
+  vars:
+    ENVIRONMENT_NAME: "{{ lookup('env', 'ENVIRONMENT_NAME') }}"
+  tasks:
+    - name: Copy deployment configuration
+      copy:
+        src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+        dest: "~/"
+      become: yes
 
-- name: Apply deployment configuration
+- name: "Apply deployment configuration"
+  hosts: management
+  user: ubuntu
+  gather_facts: false
+  become: yes
+  vars:
+    ENVIRONMENT_NAME: "{{ lookup('env', 'ENVIRONMENT_NAME') }}"
+  tasks:
+    - name: Apply deployment configuration using kubectl
+      command: kubectl apply -f "~/{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+      become: yes
