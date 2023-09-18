@@ -178,6 +178,10 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible
+      - run:
           name: Configure server
           command: |
             echo [management] > ~/project/ansible/inventory.txt
@@ -194,13 +198,17 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - install_awscli
-      - install_ansible
-      - install-kubectl
+#      - install_awscli
+#      - install_ansible
+#      - install-kubectl
       - add_ssh_keys:
           fingerprints: [14:00:b7:9c:11:04:ff:de:02:29:a8:b6:c3:c4:c7:8d]
       - attach_workspace:
           at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible
       - run:
           name: Configure server
           command: |
@@ -230,12 +238,16 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - install_awscli
-      - install_ansible
+#      - install_awscli
+#      - install_ansible
       - add_ssh_keys:
           fingerprints: [14:00:b7:9c:11:04:ff:de:02:29:a8:b6:c3:c4:c7:8d]
       - attach_workspace:
           at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible
       - run:
           name: Deploy newest Docker Image
           command: |
