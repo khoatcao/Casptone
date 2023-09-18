@@ -3,7 +3,7 @@
     src: "{{ ENVIRONMENT_NAME }}-project-service.yaml"
     dest: $HOME
 
-- name: Create service configuration
+- name: Create service configuration test
   command: "{{ HOME }}/bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-service.yaml"
   args:
     chdir: $HOME
