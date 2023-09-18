@@ -3,7 +3,7 @@
     src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
     dest: $HOME
 
-- name: Apply deployment configuration
+- name: Apply deployment configuration test
   shell: "{{ HOME }}/bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-deployment.yaml"
   args:
     chdir: $HOME
