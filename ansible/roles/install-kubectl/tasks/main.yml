@@ -9,13 +9,11 @@
   args:
     chdir: $HOME
 
-- name: "Copy the binary to a folder to the $PATH"
-  shell: mkdir $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
-  args:
-    chdir: $HOME
+- name: "Move the binary to /usr/local/bin"
+  become: yes
+  shell: sudo mv ./kubectl /usr/local/bin/kubectl
 
 - name: "Add the $HOME/bin path to the shell initialization file"
   shell: echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
   args:
     chdir: $HOME
-
