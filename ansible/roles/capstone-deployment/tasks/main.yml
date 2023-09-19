@@ -1,6 +1,5 @@
 ---
-- name: Copy deployment configuration to $HOME
-  hosts: management
+- hosts: management
   gather_facts: no
   become: yes
   tasks:
@@ -17,8 +16,7 @@
         src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
         dest: "{{ lookup('env', 'HOME') }}/{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
 
-- name: Apply deployment configuration using kubectl
-  hosts: management
+- hosts: management
   gather_facts: no
   become: yes
   tasks:
