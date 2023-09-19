@@ -9,7 +9,7 @@
 #    chdir: $HOME
 
 ---
-- name: "Copy deployment configuration to $HOME"
+- name: Copy deployment configuration to $HOME
   gather_facts: false
   become: yes
   tasks:
@@ -26,7 +26,7 @@
         src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
         dest: "{{ lookup('env', 'HOME') }}/{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
 
-- name: "Apply deployment configuration using kubectl"
+- name: Apply deployment configuration using kubectl
   gather_facts: false
   become: yes
   tasks:
