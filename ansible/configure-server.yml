@@ -113,6 +113,7 @@
 
 
 ---
+---
 - name: "Install dependencies"
   hosts: management
   user: ubuntu
@@ -164,6 +165,14 @@
   gather_facts: false
   become: yes
   tasks:
+    - name: Create directory if it doesn't exist
+      file:
+        path: "{{ lookup('env', 'HOME') }}"
+        state: directory
+        recurse: yes
+        owner: ubuntu
+        group: ubuntu
+
     - name: Copy kubeconfig to ~/.kube/config
       copy:
         src: "/home/ubuntu/.kube/config"  # Adjust the source path if needed
@@ -174,3 +183,23 @@
     - name: Set the KUBECONFIG environment variable
       shell: "export KUBECONFIG=~/.kube/config"
       become_user: ubuntu  # Set the environment variable for the user
+
+- name: "Copy deployment configuration to $HOME"
+  hosts: management
+  user: ubuntu
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: Create directory if it doesn't exist
+      file:
+        path: "{{ lookup('env', 'HOME') }}"
+        state: directory
+        recurse: yes
+        owner: ubuntu
+        group: ubuntu
+
+    - name: Copy deployment configuration to $HOME
+      copy:
+        src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+        dest: "{{ lookup('env', 'HOME') }}/{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+

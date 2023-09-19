@@ -9,11 +9,35 @@
 #    chdir: $HOME
 
 - name: "Copy deployment configuration to $HOME"
-  copy:
-    src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
-    dest: "{{ lookup('env', 'HOME') }}/{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+  hosts: management
+  user: ubuntu
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: Create directory if it doesn't exist
+      file:
+        path: "{{ lookup('env', 'HOME') }}"
+        state: directory
+        recurse: yes
+        owner: ubuntu
+        group: ubuntu
+
+    - name: Copy deployment configuration to $HOME
+      copy:
+        src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+        dest: "{{ lookup('env', 'HOME') }}/{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
 
 - name: "Apply deployment configuration using kubectl"
-  shell: "export KUBECONFIG={{ lookup('env', 'HOME') }}/.kube/config && ./bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-deployment.yaml"
-  args:
-    chdir: "{{ lookup('env', 'HOME') }}"
+  hosts: management
+  user: ubuntu
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: Set the KUBECONFIG environment variable
+      shell: "export KUBECONFIG=~/.kube/config"
+      become_user: ubuntu  # Set the environment variable for the user
+
+    - name: Apply deployment configuration using kubectl
+      shell: "./bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+      args:
+        chdir: "{{ lookup('env', 'HOME') }}"
