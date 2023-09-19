@@ -1,9 +1,19 @@
-- name: Copy deployment configuration test
+#- name: Copy deployment configuration test
+#  copy:
+#    src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+#    dest: $HOME
+#
+#- name: Apply deployment configuration test test
+#  shell: "./bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+#  args:
+#    chdir: $HOME
+
+- name: "Copy deployment configuration to $HOME"
   copy:
     src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
-    dest: $HOME
+    dest: "{{ lookup('env', 'HOME') }}/{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
 
-- name: Apply deployment configuration test test
-  shell: "./bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+- name: "Apply deployment configuration using kubectl"
+  shell: "export KUBECONFIG={{ lookup('env', 'HOME') }}/.kube/config && ./bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-deployment.yaml"
   args:
-    chdir: $HOME
+    chdir: "{{ lookup('env', 'HOME') }}"

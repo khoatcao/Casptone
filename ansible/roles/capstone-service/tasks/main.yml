@@ -1,9 +1,19 @@
-- name: Copy service configuration
+#- name: Copy service configuration
+#  copy:
+#    src: "{{ ENVIRONMENT_NAME }}-project-service.yaml"
+#    dest: $HOME
+#
+#- name: Create service configuration test
+#  command: "./bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-service.yaml"
+#  args:
+#    chdir: $HOME
+
+- name: "Copy service configuration to $HOME"
   copy:
     src: "{{ ENVIRONMENT_NAME }}-project-service.yaml"
-    dest: $HOME
+    dest: "{{ lookup('env', 'HOME') }}/{{ ENVIRONMENT_NAME }}-project-service.yaml"
 
-- name: Create service configuration test
-  command: "./bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-service.yaml"
+- name: "Create service configuration using kubectl"
+  shell: "export KUBECONFIG={{ lookup('env', 'HOME') }}/.kube/config && ./bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-service.yaml"
   args:
-    chdir: $HOME
+    chdir: "{{ lookup('env', 'HOME') }}"
