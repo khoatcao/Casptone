@@ -9,8 +9,6 @@
 #    chdir: $HOME
 
 - name: "Copy deployment configuration to $HOME"
-  hosts: management
-  user: ubuntu
   gather_facts: false
   become: yes
   tasks:
@@ -28,8 +26,6 @@
         dest: "{{ lookup('env', 'HOME') }}/{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
 
 - name: "Apply deployment configuration using kubectl"
-  hosts: management
-  user: ubuntu
   gather_facts: false
   become: yes
   tasks:
