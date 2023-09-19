@@ -16,10 +16,6 @@
         src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
         dest: "{{ lookup('env', 'HOME') }}/{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
 
-- hosts: management
-  gather_facts: no
-  become: yes
-  tasks:
     - name: Set the KUBECONFIG environment variable
       shell: "export KUBECONFIG=~/.kube/config"
       become_user: ubuntu  # Set the environment variable for the user
