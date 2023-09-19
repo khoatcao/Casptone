@@ -8,7 +8,8 @@
 #  args:
 #    chdir: $HOME
 
-- name: "Copy service configuration to $HOME"
+---
+- name: "Copy and Apply Configuration Files"
   gather_facts: false
   become: yes
   tasks:
@@ -20,18 +21,24 @@
         owner: ubuntu
         group: ubuntu
 
+    - name: Copy deployment configuration to $HOME
+      copy:
+        src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+        dest: "{{ lookup('env', 'HOME') }}/{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+
+    - name: Set the KUBECONFIG environment variable
+      shell: "export KUBECONFIG=~/.kube/config"
+      become_user: ubuntu  # Set the environment variable for the user
+
+    - name: Apply deployment configuration using kubectl
+      shell: "./bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+      args:
+        chdir: "{{ lookup('env', 'HOME') }}"
+
     - name: Copy service configuration to $HOME
       copy:
         src: "{{ ENVIRONMENT_NAME }}-project-service.yaml"
         dest: "{{ lookup('env', 'HOME') }}/{{ ENVIRONMENT_NAME }}-project-service.yaml"
-
-- name: "Create service configuration using kubectl"
-  gather_facts: false
-  become: yes
-  tasks:
-    - name: Set the KUBECONFIG environment variable
-      shell: "export KUBECONFIG=~/.kube/config"
-      become_user: ubuntu  # Set the environment variable for the user
 
     - name: Apply service configuration using kubectl
       shell: "./bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-service.yaml"

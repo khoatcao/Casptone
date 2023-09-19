@@ -8,6 +8,7 @@
 #  args:
 #    chdir: $HOME
 
+---
 - name: "Copy deployment configuration to $HOME"
   gather_facts: false
   become: yes
