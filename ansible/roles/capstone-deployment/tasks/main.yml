@@ -18,7 +18,7 @@
 
     - name: Set the KUBECONFIG environment variable
       shell: "export KUBECONFIG=~/.kube/config"
-      become_user: ubuntu  # Set the environment variable for the user
+      become_user: ubuntu  # Set the environment variable for the user TEST
 
     - name: Apply deployment configuration using kubectl
       shell: "./bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-deployment.yaml"
