@@ -1,26 +1,24 @@
----
 - hosts: management
-  gather_facts: no
-  become: yes
+  gather_facts: 'no'
+  become: 'yes'
   tasks:
     - name: Create directory if it doesn't exist
       file:
-        path: "{{ lookup('env', 'HOME') }}"
+        path: '{{ lookup(''env'', ''HOME'') }}'
         state: directory
-        recurse: yes
+        recurse: 'yes'
         owner: ubuntu
         group: ubuntu
-
     - name: Copy deployment configuration to $HOME
       copy:
-        src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
-        dest: "{{ lookup('env', 'HOME') }}/{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
-
+        src: '{{ ENVIRONMENT_NAME }}-project-deployment.yaml'
+        dest: >-
+          {{ lookup('env', 'HOME') }}/{{ ENVIRONMENT_NAME
+          }}-project-deployment.yaml
     - name: Set the KUBECONFIG environment variable
-      shell: "export KUBECONFIG=~/.kube/config"
-      become_user: ubuntu  # Set the environment variable for the user TEST
-
+      shell: export KUBECONFIG=~/.kube/config
+      become_user: ubuntu
     - name: Apply deployment configuration using kubectl
-      shell: "./bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-deployment.yaml"
+      shell: './bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-deployment.yaml'
       args:
-        chdir: "{{ lookup('env', 'HOME') }}"
+        chdir: '{{ lookup(''env'', ''HOME'') }}'
