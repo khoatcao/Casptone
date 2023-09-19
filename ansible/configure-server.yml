@@ -112,7 +112,7 @@
 #      shell: "aws eks update-kubeconfig --region {{ AWS_DEFAULT_REGION }} --name {{ ENVIRONMENT_NAME }}-cluster"
 
 
----
+
 ---
 - name: "Install dependencies"
   hosts: management
