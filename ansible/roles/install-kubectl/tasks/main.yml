@@ -1,19 +1,43 @@
+#---
+#- name: "Download kubectl"
+#  shell: curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+#  args:
+#    chdir: $HOME
+#
+#- name: "Apply execute permissions to the binary"
+#  shell: chmod +x ./kubectl
+#  args:
+#    chdir: $HOME
+#
+#- name: "Move the binary to /usr/local/bin"
+#  become: yes
+#  shell: sudo mv ./kubectl /usr/local/bin/kubectl
+#
+#- name: "Add the $HOME/bin path to the shell initialization file test"
+#  shell: echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
+#  args:
+#    chdir: $HOME
+
+
 ---
 - name: "Download kubectl"
-  shell: curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-  args:
-    chdir: $HOME
-
-- name: "Apply execute permissions to the binary"
-  shell: chmod +x ./kubectl
-  args:
-    chdir: $HOME
-
-- name: "Move the binary to /usr/local/bin"
+  hosts: management
+  user: ubuntu
+  gather_facts: false
   become: yes
-  shell: sudo mv ./kubectl /usr/local/bin/kubectl
+  tasks:
+    - name: Download kubectl binary
+      shell: curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+      args:
+        chdir: $HOME
+      environment:
+        HOME: "/home/ubuntu"  # Update with the correct home directory if necessary
 
-- name: "Add the $HOME/bin path to the shell initialization file test"
-  shell: echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
-  args:
-    chdir: $HOME
+    - name: Apply execute permissions to the binary
+      shell: chmod +x kubectl
+      args:
+        chdir: $HOME
+
+    - name: Move the binary to /usr/local/bin
+      shell: sudo mv kubectl /usr/local/bin/
+
