@@ -119,7 +119,7 @@ jobs:
               --parameter-overrides file://cloudformation/nodegroup-parameters.json \
               --capabilities CAPABILITY_NAMED_IAM
 #      - run:
-#          name: Ensure management instances exists test test test test
+#          name: Ensure management instances exists test test test test TEST
 #          command: |
 #            aws cloudformation deploy \
 #              --template-file cloudformation/management.yml \
