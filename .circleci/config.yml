@@ -148,7 +148,7 @@ jobs:
               --stack-name "${ENVIRONMENT_NAME}-eks-management" \
               --region ${AWS_DEFAULT_REGION} \
               --parameter-overrides file://cloudformation/management-parameters.json
-          no_output_timeout: 15m  # Adjust the timeout as needed test tests test test
+          no_output_timeout: 15m  # Adjust the timeout as needed test tests test test hg
       - run:
           name: Extract the IPs of the management instances for Ansible
           command: |
