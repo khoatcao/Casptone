@@ -172,9 +172,9 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-#      - install_awscli
-#      - install_ansible
-#      - install-kubectl
+      - install_awscli
+      - install_ansible
+      - install-kubectl
       - add_ssh_keys:
           fingerprints: [d5:0e:5f:f9:9e:f9:fa:00:76:46:09:c1:4a:48:71:18]
 
@@ -197,9 +197,9 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-#      - install_awscli
-#      - install_ansible
-#      - install-kubectl
+      - install_awscli
+      - install_ansible
+      - install-kubectl
       - add_ssh_keys:
           fingerprints: [d5:0e:5f:f9:9e:f9:fa:00:76:46:09:c1:4a:48:71:18]
       - attach_workspace:
@@ -233,8 +233,8 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-#      - install_awscli
-#      - install_ansible
+      - install_awscli
+      - install_ansible
       - add_ssh_keys:
           fingerprints: [d5:0e:5f:f9:9e:f9:fa:00:76:46:09:c1:4a:48:71:18]
       - attach_workspace:
