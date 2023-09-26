@@ -1,4 +1,4 @@
-- name: Copy deployment configuration test
+- name: Copy deployment configuration test test
   copy:
     src: "{{ ENVIRONMENT_NAME }}-project-deployment.yaml"
     dest: $HOME
