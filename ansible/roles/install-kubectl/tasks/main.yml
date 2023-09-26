@@ -1,6 +1,6 @@
 ---
-- name: "Download kubectl"
-  shell: curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.5/2023-09-14/bin/darwin/amd64/kubectl
+- name: "Download kubectl test"
+  shell: curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.5/2023-09-14/bin/linux/amd64/kubectl
   args:
     chdir: $HOME
 
@@ -10,11 +10,11 @@
     chdir: $HOME
 
 - name: "Copy the binary to a folder to the $PATH"
-  shell: mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+  shell: sudo mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
   args:
     chdir: $HOME
 
 - name: "Add the $HOME/bin path to the shell initialization file"
-  shell: echo 'export PATH=$HOME/bin:$PATH' >> ~/.bash_profile
+  shell: echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
   args:
     chdir: $HOME
