@@ -10,7 +10,10 @@
     chdir: $HOME
 
 - name: "Copy the binary to a folder to the $PATH"
-  shell: sudo mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+  shell: |
+       sudo mkdir -p $HOME/bin 
+       cp ./kubectl $HOME/bin/kubectl 
+       export PATH=$HOME/bin:$PATH
   args:
     chdir: $HOME
 
