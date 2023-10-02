@@ -9,7 +9,7 @@ Parameters:
     Type: String
   SSHKeyName:
     Description: SSH key for management access
-    Default: dungnq21Project5
+    Default: khoact
     Type: String
   amiImageId:
     Description: Defines the Image-ID of the OS to deploy
