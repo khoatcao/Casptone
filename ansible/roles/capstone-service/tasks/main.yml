@@ -4,6 +4,6 @@
     dest: $HOME
 
 - name: Create service configuration
-  command: "./bin/kubectl/ apply -f {{ ENVIRONMENT_NAME }}-project-service.yaml"
+  command: "./bin/kubectl apply -f {{ ENVIRONMENT_NAME }}-project-service.yaml"
   args:
     chdir: $HOME
