@@ -23,7 +23,7 @@ commands:
             sudo apt install ansible -y
 
   install-kubectl:
-    description: Install Kubectl
+    description: Install Kubectl test
     steps:
       - run:
           name: Install Kubectl test test
